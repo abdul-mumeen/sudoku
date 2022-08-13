@@ -7,6 +7,7 @@ werkzeug.cached_property = werkzeug.utils.cached_property
 
 from api.restplus import api
 from api.endpoints.health_check import ns as health_ns
+from api.endpoints.game import ns as game_ns
 
 
 MYNAME = 'sudoku'
@@ -18,6 +19,7 @@ app.config['SECRET_KEY'] = 'secret!'
 blueprint = Blueprint('api', MYNAME, url_prefix='/api')
 api.init_app(blueprint)
 api.add_namespace(health_ns)
+api.add_namespace(game_ns)
 app.register_blueprint(blueprint)
 
 
