@@ -1,6 +1,6 @@
 version: "3"
 services:
-  activity:
+  sudoku:
     build:
       context: .
       dockerfile: Dockerfile

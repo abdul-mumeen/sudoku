@@ -1,12 +1,11 @@
 """
 Sudoku API /health_check endpoint.
 """
-import logging
-
 from flask_restx import Resource, fields
 from ..restplus import api
+from loggings import get_module_logger
 
-log = logging.getLogger(__name__)
+log = get_module_logger(__name__)
 
 ns = api.namespace('health_check', description='Health monitoring')
 
@@ -23,4 +22,5 @@ class Health(Resource):
     @ns.marshal_with(health_status)
     def get(self):
         """Return service health status."""
+        log.info(f'GET /health_check')
         return {'status': 'healthy'}, 200
