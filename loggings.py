@@ -2,7 +2,7 @@ import logging
 
 def get_module_logger(mod_name):
     """
-    Creates a logger for each module
+    Creates a logger base on the module name passed
     """
     logger = logging.getLogger(mod_name)
     handler = logging.StreamHandler()
