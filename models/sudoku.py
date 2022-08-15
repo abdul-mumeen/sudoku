@@ -1,4 +1,5 @@
 from __future__ import annotations
+from typing import Tuple
 from loggings import get_module_logger
 from .cell import Cell
 from .singleton import SudokuMeta
@@ -51,12 +52,16 @@ class Sudoku(metaclass=SudokuMeta):
             raise Exception('Cell is not editable')
         self.board[row][column].set_cell_value(value)
 
-    def is_move_valid(self, row, column, value) -> bool:
+    def is_move_valid(self, row, column, value) -> Tuple[bool, str]:
         """
-        Check that there is no already existing duplicate value
+        Check that cell is not filled and there is no already existing duplicate value
         on the row, column and immediate boxof the value supplied
         """
-        # Check box
+        # Check that cell does not have a value
+        if self.board[row][column].value != 0:
+            return False, 'Invalid move, cell has a value, erase it first'
+
+        # Check duplicate in box
         box_row_start = (row // 3) * 3
         box_row_end = box_row_start + 3
         box_column_start = (column // 3) * 3
@@ -65,19 +70,19 @@ class Sudoku(metaclass=SudokuMeta):
         for i in range(box_row_start, box_row_end):
             for j in range(box_column_start, box_column_end):
                 if self.board[i][j].value == value and not (i == row and j == column):
-                    return False
+                    return False, 'Invalid move, duplicate number in the same box'
 
-        # Check row
+        # Check duplicate in column
         for i in range(len(self.board[0])):
             if self.board[i][column].value == value and row != i:
-                return False
+                return False, 'Invalid move, duplicate number on the same column'
 
-        # Check column
+        # Check duplicate in row
         for i in range(len(self.board)):
             if self.board[row][i].value == value and column != i:
-                return False
+                return False, 'Invalid move, duplicate number on the same row'
 
-        return True
+        return True, ''
 
     def is_board_passed(self) -> bool:
         """The game is completed when there are no empty cells"""
