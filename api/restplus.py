@@ -1,11 +1,7 @@
 """
 flask-restplus specific initializations.
 """
-import logging
-
 from flask_restx import Api
-
-log = logging.getLogger(__name__)
 
 api = Api(version='1', title='Sudoku', description='Have fun with sudoku game')
 
