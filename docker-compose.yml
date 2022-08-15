@@ -6,9 +6,6 @@ services:
       dockerfile: Dockerfile
     volumes:
       - .:/usr/src/app
-    env_file: .env
-    environment:
-      - ENV_MODE=${ENV_MODE}
     ports:
       - "8000:8000"
     container_name: sudoku_app
