@@ -1,0 +1,11 @@
+version: "3"
+services:
+  sudoku_test:
+    build:
+      context: .
+      dockerfile: Dockerfile.test
+    volumes:
+      - .:/usr/src/app
+    ports:
+      - "10000:10000"
+    container_name: sudoku_app_test
